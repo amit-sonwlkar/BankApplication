@@ -63,10 +63,13 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public void delete(Customers customers) {
 		Session session = sessionFactory.openSession();
-		Query query = session.createQuery("delete from Customers where customerId=:customerId");
-		query.setParameter("customers", customers.getCutomerId());
+		Transaction tx = (Transaction) session.beginTransaction();
+		Query query = session.createQuery("delete from Customers c where c.customerId=:customerId");
+		
+		query.setParameter("customerId", customers.getCustomerId());
 		@SuppressWarnings({ "unchecked", "unused" })
-		List<Customers> customersList= query.getResultList();
+        int count = query.executeUpdate();
+		tx.commit();
 	}
 
 	@Override

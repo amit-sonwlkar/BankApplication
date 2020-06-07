@@ -2,6 +2,7 @@ package com.banking.modal;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "T_CUSTOMERS")
 public class Customers implements Serializable {
@@ -19,7 +22,7 @@ public class Customers implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="CUSTOMER_ID",nullable = false)
-	private Long cutomerId ;
+	private Long customerId ;
 	
 	@Column(name="FIRST_NAME",nullable = false)
 	private String firstName ;
@@ -30,20 +33,21 @@ public class Customers implements Serializable {
 	@Column(name="ADDRESS",nullable = true)
 	private String address ;
 	
-	@Column(name="SECURITY_NUMBER",nullable = false)
-	private String securityNumber;
+	@JsonIgnore
+	@Column(name="SSN",nullable = true)
+	private String ssn;
 	
 	@Transient
 	private List<BankAccounts> bankAccountList;
 
 	//------------------GETTER / SETTER ------------------
 	
-	public Long getCutomerId() {
-		return cutomerId;
+	public Long getCustomerId() {
+		return customerId;
 	}
 
-	public void setCutomerId(Long cutomerId) {
-		this.cutomerId = cutomerId;
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getFirstName() {
@@ -58,8 +62,8 @@ public class Customers implements Serializable {
 		return address;
 	}
 
-	public String getSecurityNumber() {
-		return securityNumber;
+	public String getSsn() {
+		return ssn;
 	}
 
 	public List<BankAccounts> getBankAccountList() {
@@ -77,10 +81,11 @@ public class Customers implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	public void setSecurityNumber(String securityNumber) {
-		this.securityNumber = securityNumber;
+	
+	public void setSsn(String ssn) {
+		this.ssn = ssn;
 	}
+
 
 	@OneToMany(mappedBy ="customerObj")
 	public void setBankAccountList(List<BankAccounts> bankAccountList) {
@@ -88,5 +93,4 @@ public class Customers implements Serializable {
 	}
 	
 	
-	
-}
+	}

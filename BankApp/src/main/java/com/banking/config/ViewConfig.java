@@ -1,4 +1,4 @@
-package com.banking.config;
+/*package com.banking.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -11,6 +11,6 @@ public class ViewConfig implements WebMvcConfigurer {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/index").setViewName("index");
 		registry.addViewController("/").setViewName("index");
-		registry.addViewController("/customerView").setViewName("addCostomerView");
+		registry.addViewController("/addCustomerView").setViewName("costomerView");
 	}
-}
+}*/

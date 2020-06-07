@@ -1,6 +1,7 @@
 package com.banking.modal;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,11 +27,11 @@ public class BankAccounts implements Serializable{
 	@Column(name="ACCOUNT_TYPE",nullable = false)
 	private String accountType ;
 
-	@Column(name="ADDRESS",nullable = true)
-	private String address;
-
 	@Column(name="BALANCE_AMMOUONT",nullable = false)
-	private Long balanceAmount;	
+	private BigDecimal balanceAmount;	
+	
+	@Column(name="CURRENCY",nullable = true)
+	private String currency;	
 
 	@ManyToOne
 	@JoinColumn(name = "CUSTOMER_ID", referencedColumnName="CUSTOMER_ID") 
@@ -50,13 +51,7 @@ public class BankAccounts implements Serializable{
 		return accountType;
 	}
 
-	public String getAddress() {
-		return address;
-	}
 
-	public Long getBalanceAmount() {
-		return balanceAmount;
-	}
 
 	public Customers getCustomerObj() {
 		return customerObj;
@@ -74,15 +69,23 @@ public class BankAccounts implements Serializable{
 		this.accountType = accountType;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setCustomerObj(Customers customerObj) {
+		this.customerObj = customerObj;
 	}
 
-	public void setBalanceAmount(Long balanceAmount) {
+	public BigDecimal getBalanceAmount() {
+		return balanceAmount;
+	}
+
+	public void setBalanceAmount(BigDecimal balanceAmount) {
 		this.balanceAmount = balanceAmount;
 	}
 
-	public void setCustomerObj(Customers customerObj) {
-		this.customerObj = customerObj;
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 }	
