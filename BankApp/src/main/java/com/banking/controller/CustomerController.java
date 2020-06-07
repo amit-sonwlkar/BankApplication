@@ -44,6 +44,7 @@ public class CustomerController {
 		return "addCustomer";
 	}
 
+
 	@RequestMapping(value = "/createCustomer", method = RequestMethod.POST)
 	public @ResponseBody CustomerView createOrUpdateCustomer(@RequestBody CustomerView customer) throws UnsupportedEncodingException 
 	{
