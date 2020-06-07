@@ -67,7 +67,7 @@ public class CustomerController {
 	}
 
 	@RequestMapping(path = {"/edit", "/edit/{id}"})
-	public String editEmployeeById(Model model, @PathVariable("id") Optional<Long> id) 
+	public String editCustomerById(Model model, @PathVariable("id") Optional<Long> id) 
 	{
 		if (id.isPresent()) {
 			Customers customerObj = customerService.get(id.get());
@@ -80,7 +80,7 @@ public class CustomerController {
 	}
 
 	@RequestMapping(path = "/delete/{id}")
-	public String deleteEmployeeById(Model model, @PathVariable("id") Long id) 
+	public String deleteCustomerById(Model model, @PathVariable("id") Long id) 
 	{
 		Customers customerObj = customerService.get(id);
 		customerService.delete(customerObj);
