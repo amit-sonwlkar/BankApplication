@@ -1,5 +1,7 @@
 package com.banking.service;
 import java.util.List;
+
+import com.banking.modal.BankAccounts;
 import com.banking.modal.Customers;
 public interface CustomerService {
 	public List<Customers>getAll();
@@ -7,4 +9,5 @@ public interface CustomerService {
 	public void update(Customers customers);
 	public void delete(Customers customers);
 	public Customers  get(Long customerId);
+	public List<BankAccounts> bankAccountList(Long customerId);
 }

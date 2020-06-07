@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.banking.dao.CustomerDao;
+import com.banking.modal.BankAccounts;
 import com.banking.modal.Customers;
 
 @Repository("customerDao")
@@ -84,6 +85,18 @@ public class CustomerDaoImpl implements CustomerDao {
 			return new Customers();
 		else
 			return customerList.get(0);
+	}
+	
+	public List<BankAccounts> bankAccountList(Long customerId){
+		Session session = sessionFactory.openSession();
+		Query query = (Query) session.createQuery("from BankAccounts ba where ba.customerObj.customerId=:customerId");
+		query.setParameter("customerId", customerId);
+		@SuppressWarnings("unchecked")
+		List<BankAccounts> bankAccountList= query.getResultList();
+		if(bankAccountList.isEmpty())
+			return new ArrayList<BankAccounts>();
+		else 
+			return bankAccountList;
 	}
 
 }

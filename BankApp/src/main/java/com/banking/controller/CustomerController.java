@@ -2,6 +2,7 @@ package com.banking.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -56,6 +57,7 @@ public class CustomerController {
 		customersObj.setFirstName(customer.getFirstName());
 		customersObj.setLastName(customer.getLastName());
 		customersObj.setSsn(uuid.toString());
+		customersObj.setAddress(customer.getAddress());
 		customerService.add(customersObj);
 		
 		accounts.setAccountType(customer.getAccountType());
@@ -66,37 +68,38 @@ public class CustomerController {
 		return customer;
 	}
 
+	  @RequestMapping(path = "/editCustomer", method = RequestMethod.POST)
+	    public String createOrUpdateEmployee(Customers customer) 
+	    {
+		  customerService.add(customer);
+	        return "redirect:/customerView";
+	    }
 	@RequestMapping(path = {"/edit", "/edit/{id}"})
-	public String editEmployeeById(Model model, @PathVariable("id") Optional<Long> id) 
+	public String editCustomerById(Model model, @PathVariable("id") Optional<Long> id) 
 	{
 		if (id.isPresent()) {
 			Customers customerObj = customerService.get(id.get());
-			
+			List<BankAccounts> bankAccounts =customerService.bankAccountList(id.get());	
 			model.addAttribute("customer", customerObj);
+			model.addAttribute("bankAccount", bankAccounts);
 		} else {
 			model.addAttribute("customer", new Customers());
 		}
-		return "addCustomer";
+		return "editCustomer";
 	}
 
 	@RequestMapping(path = "/delete/{id}")
-	public String deleteEmployeeById(Model model, @PathVariable("id") Long id) 
+	public String deleteCustomerById(Model model, @PathVariable("id") Long id) 
 	{
 		Customers customerObj = customerService.get(id);
+		List<BankAccounts> bankAccounts =customerService.bankAccountList(id);
+		bankAccounts.forEach(ba->{
+			bankAccountService.delete(ba);
+		});
 		customerService.delete(customerObj);
 		return "redirect:/customerView";
 	}
 	
-	
-	/*@RequestMapping(path = "/bankAcount/{id}")
-	public String bankAcount(Model model, @PathVariable("id") Long id) 
-	{
-		Customers customerObj = customerService.get(id);
-		BankAccounts bankAccounts = new BankAccounts();
-		bankAccountService.add(bankAccounts);
-		return "redirect:/customerView";
-	}
-	*/
 	public String generateAccount(Long customerId){
 		String acNo = "000000"+customerId;
 		

@@ -63,10 +63,12 @@ public class BankAccountDaoImpl implements BankAccountDao{
 	@Override
 	public void delete(BankAccounts bankAccounts) {
 		Session session = sessionFactory.openSession();
-		Query query = session.createQuery("delete from BankAccounts where accountId=:accountId");
-		query.setParameter("bankAccounts", bankAccounts.getAccountId());
+		Transaction tx = (Transaction) session.beginTransaction();
+		Query query = session.createQuery("delete from BankAccounts ba where ba.accountId=:accountId");
+		query.setParameter("accountId", bankAccounts.getAccountId());
 		@SuppressWarnings({ "unchecked", "unused" })
-		List<BankAccounts> bankAccountsList= query.getResultList();
+		int count = query.executeUpdate();
+		tx.commit();
 	}
 
 	@Override

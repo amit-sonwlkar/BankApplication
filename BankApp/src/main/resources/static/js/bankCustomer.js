@@ -30,13 +30,33 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	$('.clsEditCustomer').click(function(){
+			customerId = $(this).attr('data-customerId');
+			editCustomer(customerId);
+	});
 });
-
-
-function showCustomerView(data){debugger;
+function editCustomer(customerId){
 	$.ajax({
-	type: "GET",
-	url: "customerView",
-	success: function (data) {},
-	error: function (e) {}
-});}
+		type: "POST",
+		contentType: "application/json",
+		url: "edit/"+customerId,
+		dataType: 'json',
+		cache: false,
+		timeout: 600000,
+		success: function (data) {
+			if(data){
+				 $("#firstName").val(data.firstName);
+				 $("#lastName").val(data.lastName);
+				 $("#address").val(data.address);
+				 $("#selAccType").val(data.bankAccountList.accountType);
+				 $("#id").val(data.customerId);
+			}
+		},
+		error: function (e) {
+		}
+	});
+}
+function showCustomerView(data){debugger;
+location.href = "customerView"
+}

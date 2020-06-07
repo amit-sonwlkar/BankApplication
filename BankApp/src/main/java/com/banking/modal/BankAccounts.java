@@ -31,7 +31,10 @@ public class BankAccounts implements Serializable{
 	private BigDecimal balanceAmount;	
 	
 	@Column(name="CURRENCY",nullable = true)
-	private String currency;	
+	private String currency;
+	
+	@Column(name="STATUS",nullable = true)
+	private Boolean status;
 
 	@ManyToOne
 	@JoinColumn(name = "CUSTOMER_ID", referencedColumnName="CUSTOMER_ID") 
@@ -87,5 +90,13 @@ public class BankAccounts implements Serializable{
 
 	public void setCurrency(String currency) {
 		this.currency = currency;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 }	

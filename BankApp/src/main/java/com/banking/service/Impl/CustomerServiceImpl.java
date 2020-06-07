@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.banking.dao.CustomerDao;
+import com.banking.modal.BankAccounts;
 import com.banking.modal.Customers;
 import com.banking.service.CustomerService;
 
@@ -40,6 +41,11 @@ public class CustomerServiceImpl implements CustomerService{
 	public Customers get(Long customerId) {
 		return customerDao.get(customerId);
 	}
+	
+	public List<BankAccounts> bankAccountList(Long customerId){
+		return customerDao.bankAccountList(customerId);
+	}
+
 
 	
 }
