@@ -2,8 +2,7 @@ package com.banking.modal;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,7 +36,10 @@ public class Customers implements Serializable {
 	@Column(name="SSN",nullable = true)
 	private String ssn;
 	
-	@Transient
+	@Column(name="STATUS",nullable = true)
+	private Boolean status;
+	
+	@OneToMany(mappedBy ="customerObj",cascade = CascadeType.REMOVE)
 	private List<BankAccounts> bankAccountList;
 
 	//------------------GETTER / SETTER ------------------
@@ -86,10 +88,16 @@ public class Customers implements Serializable {
 		this.ssn = ssn;
 	}
 
-
-	@OneToMany(mappedBy ="customerObj")
 	public void setBankAccountList(List<BankAccounts> bankAccountList) {
 		this.bankAccountList = bankAccountList;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 	
 	
